@@ -3,8 +3,6 @@
 > An advanced AI-powered health screening tool that assesses lung cancer risk factors using machine learning and medical data analysis
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Try%20Now-brightgreen?style=for-the-badge&logo=render)](https://your-healthai-app.onrender.com)
-[![GitHub Stars](https://img.shields.io/github/stars/nonsodev/lung-cancer-predictor?style=for-the-badge&logo=github)](https://github.com/nonsodev/lung-cancer-predictor/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/nonsodev/lung-cancer-predictor?style=for-the-badge&logo=github)](https://github.com/nonsodev/lung-cancer-predictor/network/members)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)](https://python.org)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18+-orange?style=for-the-badge&logo=tensorflow)](https://tensorflow.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-red?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
@@ -124,9 +122,6 @@ Unlike traditional screening methods, HealthAI:
 ![HealthAI Demo - Results Page](demo-healthai-results.png)
 *Comprehensive risk analysis with personalized health recommendations*
 
-### 📱 **Responsive Design**
-![HealthAI Demo - Mobile View](demo-healthai-mobile.png)
-*Seamless experience across all devices - desktop, tablet, and mobile*
 
 ### 🚀 **Try HealthAI Now**
 
