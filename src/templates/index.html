@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative; /* Added for tooltip positioning */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .unit {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 0.9em;
+            pointer-events: none;
+        }
+
+        .api-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .api-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .api-link a:hover {
+            text-decoration: underline;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+
+        /* Tooltip styles */
+        .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the element */
+            left: 50%;
+            margin-left: -100px; /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .form-group:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Weather Predictor</h1>
+        
+        <form method="POST" action="/predict_form">
+            <div class="form-grid">
+                <div>
+                    <div class="section-title">🌡️ Temperature & Atmospheric</div>
+                    
+                    <div class="form-group">
+                        <label for="temperature">Temperature</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="temperature" name="temperature" value="32.0" required>
+                            <span class="unit">°C</span>
+                        </div>
+                        <span class="tooltip-text">The current air temperature. Obtain from local weather stations or online weather services.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="atmospheric_pressure">Atmospheric Pressure</label>
+                        <div class="input-group">
+                            <input type="number" step="0.01" id="atmospheric_pressure" name="atmospheric_pressure" value="1010.21" required>
+                            <span class="unit">hPa</span>
+                        </div>
+                        <span class="tooltip-text">The force exerted by the atmosphere. Can be found on barometers or weather apps.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="humidity">Humidity</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="humidity" name="humidity" min="0" max="100" value="66" required>
+                            <span class="unit">%</span>
+                        </div>
+                        <span class="tooltip-text">The amount of water vapor in the air. Measured by hygrometers or available from weather reports.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uv_index">UV Index</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="uv_index" name="uv_index" min="0" max="15" value="2" required>
+                        </div>
+                        <span class="tooltip-text">Measures the strength of UV radiation. Check daily UV forecasts.</span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="section-title">💨 Wind & Precipitation</div>
+                    
+                    <div class="form-group">
+                        <label for="wind_speed">Wind Speed</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="wind_speed" name="wind_speed" min="0" value="1.5" required>
+                            <span class="unit">m/s</span>
+                        </div>
+                        <span class="tooltip-text">The speed of the wind. Use an anemometer or consult weather observations.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precipitation">Precipitation</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="precipitation" name="precipitation" min="0" value="92.0" required>
+                            <span class="unit">mm</span>
+                        </div>
+                        <span class="tooltip-text">The amount of rain, snow, or other forms of water falling from the sky. Measured with a rain gauge.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="visibility">Visibility</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="visibility" name="visibility" min="0" value="6.0" required>
+                            <span class="unit">km</span>
+                        </div>
+                        <span class="tooltip-text">How far one can see. Reported by meteorological stations.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cloud_cover">Cloud Cover</label>
+                        <select id="cloud_cover" name="cloud_cover" required>
+                            <option value="">Select Cloud Cover</option>
+                            <option value="clear">Clear</option>
+                            <option value="partly cloudy" selected>Partly Cloudy</option>
+                            <option value="cloudy">Cloudy</option>
+                            <option value="overcast">Overcast</option>
+                        </select>
+                        <span class="tooltip-text">The amount of sky covered by clouds. Visually observe or refer to satellite imagery.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <div class="section-title">📍 Location & Time</div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select id="location" name="location" required>
+                            <option value="">Select Location</option>
+                            <option value="inland" selected>Inland</option>
+                            <option value="coastal">Coastal</option>
+                            <option value="mountain">Mountain</option>
+                        </select>
+                        <span class="tooltip-text">The type of geographical area. Consider your region's topography.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="season">Season</label>
+                        <select id="season" name="season" required>
+                            <option value="">Select Season</option>
+                            <option value="Spring" selected>Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Autumn">Autumn</option>
+                            <option value="Winter">Winter</option>
+                        </select>
+                        <span class="tooltip-text">The current season. Based on the time of year in your hemisphere.</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">🔮 Get Weather Prediction</button>
+        </form>
+
+        <div class="api-link">
+            <a href="/api">📋 View API Documentation</a>
+        </div>
+    </div>
+</body>
+</html>

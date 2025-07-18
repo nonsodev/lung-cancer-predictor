@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+
+        .result-error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(244, 67, 54, 0.3);
+        }
+
+        .prediction-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .weather-icon {
+            font-size: 4em;
+        }
+
+        .prediction-details {
+            text-align: left;
+        }
+
+        .prediction-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .confidence-score {
+            font-size: 1.2em;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .input-summary {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+            text-align: left;
+        }
+
+        .input-summary h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .input-section h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .input-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 5px 0;
+        }
+
+        .input-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .input-value {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-details {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #d32f2f;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .prediction-main {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .prediction-value {
+                font-size: 2em;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Weather Prediction Result</h1>
+        
+        {% if prediction %}
+            <div class="result-success">
+                <div class="prediction-main">
+                    <div class="weather-icon">
+                        {% if prediction.weather_type == 'Sunny' %}☀️
+                        {% elif prediction.weather_type == 'Rainy' %}🌧️
+                        {% elif prediction.weather_type == 'Cloudy' %}☁️
+                        {% elif prediction.weather_type == 'Snowy' %}❄️
+                        {% elif prediction.weather_type == 'Drizzle' %}🌦️
+                        {% elif prediction.weather_type == 'Foggy' %}🌫️
+                        {% else %}🌤️
+                        {% endif %}
+                    </div>
+                    <div class="prediction-details">
+                        <div class="prediction-value">{{ prediction.weather_type }}</div>
+                        <div class="confidence-score">
+                            Confidence: {{ "%.1f"|format(prediction.confidence * 100) }}%
+                        </div>
+                    </div>
+                </div>
+                <p>Prediction based on advanced machine learning model analysis</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="result-error">
+                <div style="font-size: 3em; margin-bottom: 20px;">❌</div>
+                <h2>Prediction Failed</h2>
+                <p>{{ error }}</p>
+                
+                {% if traceback %}
+                    <div class="error-details">
+                        <strong>Technical Details:</strong><br>
+                        {{ traceback }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if input_data %}
+            <div class="input-summary">
+                <h3>📊 Input Parameters Used</h3>
+                <div class="input-grid">
+                    <!-- Temperature & Atmospheric -->
+                    <div class="input-section">
+                        <h4>🌡️ Temperature & Atmospheric</h4>
+                        <div class="input-item">
+                            <span class="input-label">Temperature:</span>
+                            <span class="input-value">{{ input_data.Temperature }}°C</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">Humidity:</span>
+                            <span class="input-value">{{ input_data.Humidity }}%</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">Pressure:</span>
+                            <span class="input-value">{{ input_data.Atmospheric_pressure }} hPa</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">UV Index:</span>
+                            <span class="input-value">{{ input_data.UV_Index }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Wind & Precipitation -->
+                    <div class="input-section">
+                        <h4>💨 Wind & Precipitation</h4>
+                        <div class="input-item">
+                            <span class="input-label">Wind Speed:</span>
+                            <span class="input-value">{{ input_data.Wind_Speed }} m/s</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">Precipitation:</span>
+                            <span class="input-value">{{ input_data.Precipitation }} mm</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">Visibility:</span>
+                            <span class="input-value">{{ input_data.Visibility }} km</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">Cloud Cover:</span>
+                            <span class="input-value">{{ input_data.Cloud_cover|title }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Location & Season -->
+                    <div class="input-section">
+                        <h4>📍 Location & Time</h4>
+                        <div class="input-item">
+                            <span class="input-label">Location:</span>
+                            <span class="input-value">{{ input_data.Location|title }}</span>
+                        </div>
+                        <div class="input-item">
+                            <span class="input-label">Season:</span>
+                            <span class="input-value">{{ input_data.Season }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div>
+            <a href="/" class="btn">🔄 Make Another Prediction</a>
+            <a href="/api" class="btn">📋 View API Docs</a>
+        </div>
+    </div>
+</body>
+</html>
