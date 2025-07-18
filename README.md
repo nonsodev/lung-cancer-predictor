@@ -2,7 +2,7 @@
 
 > An advanced AI-powered health screening tool that assesses lung cancer risk factors using machine learning and medical data analysis
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Try%20Now-brightgreen?style=for-the-badge&logo=render)](https://your-healthai-app.onrender.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Try%20Now-brightgreen?style=for-the-badge&logo=render)](https://lung-cancer-predictor-qxfh.onrender.com)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)](https://python.org)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18+-orange?style=for-the-badge&logo=tensorflow)](https://tensorflow.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-red?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
@@ -115,11 +115,11 @@ Unlike traditional screening methods, HealthAI:
 ## 🎨 Application Screenshots
 
 ### 🏠 **Beautiful Health Interface**
-![HealthAI Demo - Risk Assessment Form](demo-healthai-form.png)
+![HealthAI Demo - Risk Assessment Form](interface.png)
 *Professional medical-grade interface with intuitive risk factor assessment*
 
 ### 📊 **Intelligent Results Dashboard**
-![HealthAI Demo - Results Page](demo-healthai-results.png)
+![HealthAI Demo - Results Page](result.png)
 *Comprehensive risk analysis with personalized health recommendations*
 
 
