@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 # Set working directory
-WORKDIR /weather
+WORKDIR /lungPredictor
 
 # Install system dependencies needed for scientific packages
 RUN apt-get update && apt-get install -y \

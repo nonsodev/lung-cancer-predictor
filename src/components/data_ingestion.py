@@ -56,11 +56,12 @@ if __name__ == "__main__":
     obj = DataIngestion()
     train_data_path, test_data_path = obj.initiate_data_ingestion()
     print(train_data_path, test_data_path)
-    # transformer = DataTransformation()
-    # train_arr, test_arr = transformer.preprocess_data(train_data_path, test_data_path)
-    # trainer = ModelTrainer()
-    # report = trainer.initiate_model_trainer(train_arr, test_arr)
-    # print(report)
+    transformer = DataTransformation(columns_to_drop=['GENDER','AGE', 'SMOKING', 'SHORTNESS OF BREATH'])
+    train_arr, test_arr = transformer.preprocess_data(train_data_path, test_data_path)
+    print(train_arr, test_arr)
+    trainer = ModelTrainer()
+    report = trainer.initiate_model_trainer(train_arr, test_arr)
+    print(report)
     
     
     

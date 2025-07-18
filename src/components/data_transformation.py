@@ -20,7 +20,6 @@ from src.utils.utils import save_pkl_file, load_pkl_file
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path = os.path.join("artifacts", "preprocessor.pkl")
     label_encoder_obj_file_path = os.path.join("artifacts", "le.pkl")
 
 class DataTransformation:
@@ -40,7 +39,6 @@ class DataTransformation:
         self.columns_to_drop = columns_to_drop or []
         self.oversampling_strategy = oversampling_strategy
         self.oversampling_ratio = oversampling_ratio
-        self.preprocessor = self.get_data_transformer_object()
         self.oversampler = self.get_oversampler()
     
     def get_oversampler(self):
@@ -57,48 +55,6 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e, sys)
     
-    def get_data_transformer_object(self):
-        logging.info("getting preprocessor")
-        try:
-            # Define all possible columns
-            all_numerical_cols = []
-            all_categorical_cols = ["Cloud Cover", "Season", "Location"]
-            
-            # Remove columns that should be dropped
-            numerical_cols = [col for col in all_numerical_cols if col not in self.columns_to_drop]
-            categorical_cols = [col for col in all_categorical_cols if col not in self.columns_to_drop]
-            
-            logging.info(f"Using numerical columns: {numerical_cols}")
-            logging.info(f"Using categorical columns: {categorical_cols}")
-            logging.info(f"Dropped columns: {self.columns_to_drop}")
-            
-            # Create pipelines
-            numerical_pipeline = Pipeline([
-                ("imputer", SimpleImputer(strategy="median")),  # Added imputer for safety
-                ("scaler", StandardScaler(with_mean=False))
-            ])
-            
-            categorical_pipeline = Pipeline([
-                ("imputer", SimpleImputer(strategy="most_frequent")),  # Added imputer for safety
-                ("encoder", OneHotEncoder(handle_unknown='ignore'))  # Added handle_unknown for safety
-            ])
-            
-            # Create preprocessor only with non-empty column lists
-            transformers = []
-            if numerical_cols:
-                transformers.append(("numerical_pipeline", numerical_pipeline, numerical_cols))
-            if categorical_cols:
-                transformers.append(("categorical_pipeline", categorical_pipeline, categorical_cols))
-            
-            if not transformers:
-                raise ValueError("No columns left after dropping specified columns")
-            
-            preprocessor = ColumnTransformer(transformers)
-            logging.info("saved and returning preprocessor")
-            return preprocessor
-            
-        except Exception as e:
-            raise CustomException(e, sys)
     
     def preprocess_data(self, train_path, test_path):
         try:
@@ -112,43 +68,29 @@ class DataTransformation:
             train_df = train_df.drop_duplicates()
             test_df = test_df.drop_duplicates()
             
-            le = LabelEncoder()
+            # Define columns to encode
+            categorical_columns = ['GENDER', 'SMOKING', 'YELLOW_FINGERS', 'ANXIETY', 
+                                 'PEER_PRESSURE', 'CHRONIC DISEASE', 'FATIGUE ', 'ALLERGY ',
+                                 'WHEEZING', 'ALCOHOL CONSUMING', 'COUGHING', 'SHORTNESS OF BREATH',
+                                 'SWALLOWING DIFFICULTY', 'CHEST PAIN']
             
-            train_df['GENDER']=le.fit_transform(train_df['GENDER'])
-            train_df['LUNG_CANCER']=le.fit_transform(train_df['LUNG_CANCER'])
-            train_df['SMOKING']=le.fit_transform(train_df['SMOKING'])
-            train_df['YELLOW_FINGERS']=le.fit_transform(train_df['YELLOW_FINGERS'])
-            train_df['ANXIETY']=le.fit_transform(train_df['ANXIETY'])
-            train_df['PEER_PRESSURE']=le.fit_transform(train_df['PEER_PRESSURE'])
-            train_df['CHRONIC DISEASE']=le.fit_transform(train_df['CHRONIC DISEASE'])
-            train_df['FATIGUE ']=le.fit_transform(train_df['FATIGUE '])
-            train_df['ALLERGY ']=le.fit_transform(train_df['ALLERGY '])
-            train_df['WHEEZING']=le.fit_transform(train_df['WHEEZING'])
-            train_df['ALCOHOL CONSUMING']=le.fit_transform(train_df['ALCOHOL CONSUMING'])
-            train_df['COUGHING']=le.fit_transform(train_df['COUGHING'])
-            train_df['SHORTNESS OF BREATH']=le.fit_transform(train_df['SHORTNESS OF BREATH'])
-            train_df['SWALLOWING DIFFICULTY']=le.fit_transform(train_df['SWALLOWING DIFFICULTY'])
-            train_df['CHEST PAIN']=le.fit_transform(train_df['CHEST PAIN'])
+            # Create label encoders for each categorical column
+            label_encoders = {}
             
-            test_df['GENDER']=le.fit_transform(test_df['GENDER'])
-            test_df['LUNG_CANCER']=le.fit_transform(test_df['LUNG_CANCER'])
-            test_df['SMOKING']=le.fit_transform(test_df['SMOKING'])
-            test_df['YELLOW_FINGERS']=le.fit_transform(test_df['YELLOW_FINGERS'])
-            test_df['ANXIETY']=le.fit_transform(test_df['ANXIETY'])
-            test_df['PEER_PRESSURE']=le.fit_transform(test_df['PEER_PRESSURE'])
-            test_df['CHRONIC DISEASE']=le.fit_transform(test_df['CHRONIC DISEASE'])
-            test_df['FATIGUE ']=le.fit_transform(test_df['FATIGUE '])
-            test_df['ALLERGY ']=le.fit_transform(test_df['ALLERGY '])
-            test_df['WHEEZING']=le.fit_transform(test_df['WHEEZING'])
-            test_df['ALCOHOL CONSUMING']=le.fit_transform(test_df['ALCOHOL CONSUMING'])
-            test_df['COUGHING']=le.fit_transform(test_df['COUGHING'])
-            test_df['SHORTNESS OF BREATH']=le.fit_transform(test_df['SHORTNESS OF BREATH'])
-            test_df['SWALLOWING DIFFICULTY']=le.fit_transform(test_df['SWALLOWING DIFFICULTY'])
-            test_df['CHEST PAIN']=le.fit_transform(test_df['CHEST PAIN'])
+            # Fit and transform categorical columns for train data
+            for col in categorical_columns:
+                if col in train_df.columns:
+                    le = LabelEncoder()
+                    train_df[col] = le.fit_transform(train_df[col])
+                    label_encoders[col] = le
+                    
+                    # Transform test data using the same encoder (only transform, not fit)
+                    if col in test_df.columns:
+                        test_df[col] = le.transform(test_df[col])
             
-            train_df['ANXYELFIN']=train_df['ANXIETY']*train_df['YELLOW_FINGERS']
-            test_df['ANXYELFIN']=test_df['ANXIETY']*test_df['YELLOW_FINGERS']
-            
+            # Create feature engineering
+            train_df['ANXYELFIN'] = train_df['ANXIETY'] * train_df['YELLOW_FINGERS']
+            test_df['ANXYELFIN'] = test_df['ANXIETY'] * test_df['YELLOW_FINGERS']
             
             # Drop specified columns
             if self.columns_to_drop:
@@ -156,6 +98,8 @@ class DataTransformation:
                 train_df = train_df.drop(columns=self.columns_to_drop, errors='ignore')
                 test_df = test_df.drop(columns=self.columns_to_drop, errors='ignore')
                 logging.info(f"After dropping - train shape: {train_df.shape}, test shape: {test_df.shape}")
+            
+            logging.info(f"final available column names: {train_df.columns}")
             
             # Separate features and target
             train_input_df = train_df.drop("LUNG_CANCER", axis=1)
@@ -167,34 +111,34 @@ class DataTransformation:
             # Show class distribution before oversampling
             logging.info(f"Original class distribution: {Counter(train_output_series)}")
             
-            # Encode target variable
-            le = LabelEncoder()
-            train_output_arr = le.fit_transform(train_output_series)
-            test_output_arr = le.transform(test_output_series)
+            # Get input as array
+            train_input_arr = train_input_df.to_numpy()
+            test_input_arr = test_input_df.to_numpy()
             
-            # Preprocess features
-            preprocessor = self.preprocessor
-            train_input_arr = preprocessor.fit_transform(train_input_df)
-            test_input_arr = preprocessor.transform(test_input_df)
+            # Encode target variable with separate encoder
+            target_le = LabelEncoder()
+            train_output_arr = target_le.fit_transform(train_output_series)
+            test_output_arr = target_le.transform(test_output_series)
+            
             logging.info("splitted and preprocessed features")
             
-            # Apply oversampling if specified
+            # Apply oversampling ONLY to training data
             if self.oversampler is not None:
-                logging.info(f"Applying {self.oversampling_strategy} oversampling...")
+                logging.info(f"Applying {self.oversampling_strategy} oversampling to training data only...")
                 train_input_arr, train_output_arr = self.oversampler.fit_resample(
                     train_input_arr, train_output_arr
                 )
                 logging.info(f"After oversampling - train shape: {train_input_arr.shape}")
-                logging.info(f"New class distribution: {Counter(train_output_arr)}")
+                logging.info(f"New train class distribution: {Counter(train_output_arr)}")
+                logging.info(f"Test data unchanged - test shape: {test_input_arr.shape}")
             
             # Combine features and target
             train_arr = np.c_[train_input_arr, train_output_arr]
             test_arr = np.c_[test_input_arr, test_output_arr]
             logging.info("joined the input and output together")
             
-            # Save objects (Note: oversampler is not saved as it's only used during training)
-            save_pkl_file(self.data_transformation_config.preprocessor_obj_file_path, preprocessor)
-            save_pkl_file(self.data_transformation_config.label_encoder_obj_file_path, le)
+            # Save the target label encoder
+            save_pkl_file(self.data_transformation_config.label_encoder_obj_file_path, target_le)
             
             return (
                 train_arr,
@@ -203,5 +147,3 @@ class DataTransformation:
             
         except Exception as e:
             raise CustomException(e, sys)
-
-

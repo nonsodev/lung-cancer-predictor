@@ -32,18 +32,18 @@ def home():
 def api_info():
     """API documentation endpoint"""
     return {
-        'message': 'Weather Predictor API',
+        'message': 'Lung Cancer Predictor API',
         'version': '1.0.0',
         'endpoints': {
             '/': 'GET - Web form interface',
             '/health': 'GET - Health check',
-            '/predict': 'POST - Weather prediction (JSON)',
-            '/predict_form': 'POST - Weather prediction (Form)'
+            '/predict': 'POST - Lung cancer prediction (JSON)',
+            '/predict_form': 'POST - Lung cancer prediction (Form)'
         },
         'required_fields': [
-            'Temperature', 'Humidity', 'Wind_Speed', 'Precipitation', 
-            'Cloud_cover', 'Atmospheric_pressure', 'UV_Index', 
-            'Season', 'Visibility', 'Location'
+            'yellow_fingers', 'anxiety', 'peer_pressure', 'chronic_disease', 
+            'fatigue', 'allergy', 'wheezing', 'alcohol_consuming', 
+            'coughing', 'swallowing_difficulty', 'chest_pain'
         ]
     }
 
@@ -72,11 +72,11 @@ def predict_api():
                 'status': 'error'
             }, 400
 
-        # Extract required fields
+        # Extract required fields for lung cancer prediction
         required_fields = [
-            'Temperature', 'Humidity', 'Wind_Speed', 'Precipitation',
-            'Cloud_cover', 'Atmospheric_pressure', 'UV_Index', 
-            'Season', 'Visibility', 'Location'
+            'yellow_fingers', 'anxiety', 'peer_pressure', 'chronic_disease',
+            'fatigue', 'allergy', 'wheezing', 'alcohol_consuming',
+            'coughing', 'swallowing_difficulty', 'chest_pain'
         ]
         
         # Check if all required fields are present
@@ -87,18 +87,19 @@ def predict_api():
                 'status': 'error'
             }, 400
 
-        # Call prediction with all parameters in correct order
+        # Call prediction with lung cancer parameters
         prediction = prediction_pipeline.predict(
-            Temperature=data['Temperature'],
-            Humidity=data['Humidity'],
-            Wind_Speed=data['Wind_Speed'],
-            Precipitation=data['Precipitation'],
-            Cloud_cover=data['Cloud_cover'],
-            Atmospheric_pressure=data['Atmospheric_pressure'],
-            UV_Index=data['UV_Index'],
-            Season=data['Season'],
-            Visibility=data['Visibility'],
-            Location=data['Location']
+            yellow_fingers=data['yellow_fingers'],
+            anxiety=data['anxiety'],
+            peer_pressure=data['peer_pressure'],
+            chronic_disease=data['chronic_disease'],
+            fatigue=data['fatigue'],
+            allergy=data['allergy'],
+            wheezing=data['wheezing'],
+            alcohol_consuming=data['alcohol_consuming'],
+            coughing=data['coughing'],
+            swallowing_difficulty=data['swallowing_difficulty'],
+            chest_pain=data['chest_pain']
         )
         
         return {
@@ -122,32 +123,34 @@ def predict_form():
             return render_template('result.html', 
                                  error="Prediction pipeline not initialized")
 
-        # Get form data with exact parameter names
+        # Get form data for lung cancer prediction
         form_data = {
-            'Temperature': float(request.form.get('temperature')),
-            'Humidity': float(request.form.get('humidity')),
-            'Wind_Speed': float(request.form.get('wind_speed')),
-            'Precipitation': float(request.form.get('precipitation')),
-            'Cloud_cover': request.form.get('cloud_cover'),
-            'Atmospheric_pressure': float(request.form.get('atmospheric_pressure')),
-            'UV_Index': float(request.form.get('uv_index')),
-            'Season': request.form.get('season'),
-            'Visibility': float(request.form.get('visibility')),
-            'Location': request.form.get('location')
+            'yellow_fingers': request.form.get('yellow_fingers'),
+            'anxiety': request.form.get('anxiety'),
+            'peer_pressure': request.form.get('peer_pressure'),
+            'chronic_disease': request.form.get('chronic_disease'),
+            'fatigue': request.form.get('fatigue'),
+            'allergy': request.form.get('allergy'),
+            'wheezing': request.form.get('wheezing'),
+            'alcohol_consuming': request.form.get('alcohol_consuming'),
+            'coughing': request.form.get('coughing'),
+            'swallowing_difficulty': request.form.get('swallowing_difficulty'),
+            'chest_pain': request.form.get('chest_pain')
         }
 
-        # Call prediction with exact parameter names and order
+        # Call prediction with lung cancer parameters
         prediction = prediction_pipeline.predict(
-            Temperature=form_data['Temperature'],
-            Humidity=form_data['Humidity'],
-            Wind_Speed=form_data['Wind_Speed'],
-            Precipitation=form_data['Precipitation'],
-            Cloud_cover=form_data['Cloud_cover'],
-            Atmospheric_pressure=form_data['Atmospheric_pressure'],
-            UV_Index=form_data['UV_Index'],
-            Season=form_data['Season'],
-            Visibility=form_data['Visibility'],
-            Location=form_data['Location']
+            yellow_fingers=form_data['yellow_fingers'],
+            anxiety=form_data['anxiety'],
+            peer_pressure=form_data['peer_pressure'],
+            chronic_disease=form_data['chronic_disease'],
+            fatigue=form_data['fatigue'],
+            allergy=form_data['allergy'],
+            wheezing=form_data['wheezing'],
+            alcohol_consuming=form_data['alcohol_consuming'],
+            coughing=form_data['coughing'],
+            swallowing_difficulty=form_data['swallowing_difficulty'],
+            chest_pain=form_data['chest_pain']
         )
         
         return render_template('result.html', 

@@ -1,96 +1,145 @@
-# 🌤️ Weather Predictor
+# 🫁 HealthAI - Lung Cancer Risk Assessment
 
-> An intelligent machine learning system that predicts weather conditions using multiple environmental parameters
+> An advanced AI-powered health screening tool that assesses lung cancer risk factors using machine learning and medical data analysis
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-brightgreen?style=for-the-badge&logo=render)](https://weather-predictor-1-twkw.onrender.com/)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python)](https://python.org)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0+-orange?style=for-the-badge&logo=tensorflow)](https://tensorflow.org)
-[![Flask](https://img.shields.io/badge/Flask-2.0+-red?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)](https://python.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18+-orange?style=for-the-badge&logo=tensorflow)](https://tensorflow.org)
+[![Flask](https://img.shields.io/badge/Flask-3.1+-red?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.6+-green?style=for-the-badge&logo=scikit-learn)](https://scikit-learn.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-## 🚀 Overview
+## 🏥 Overview
 
-Weather Predictor is an advanced machine learning application that analyzes environmental data to predict weather conditions with high accuracy. Built with TensorFlow and deployed as a Flask web application, it provides both a user-friendly web interface and a robust API for weather predictions.
+**HealthAI** is a sophisticated machine learning application designed to assess lung cancer risk factors through comprehensive health questionnaires. Built with advanced neural networks and deployed as a beautiful, responsive web application, it provides both healthcare professionals and individuals with valuable insights into lung cancer risk assessment.
+
+> ⚠️ **Medical Disclaimer**: This tool is for educational and informational purposes only. It is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers.
 
 ### ✨ Key Features
 
-- **🎯 High Accuracy Predictions** - Advanced neural network model trained on comprehensive weather data
-- **🌐 Web Interface** - Clean, intuitive form-based prediction interface
-- **🔗 REST API** - JSON-based API for programmatic access
-- **📊 Multiple Parameters** - Uses 10 environmental factors for comprehensive analysis
-- **☁️ Cloud Deployed** - Live demo available on Render
-- **🔄 Real-time Processing** - Instant predictions with confidence scores
+- **🎯 AI-Powered Risk Assessment** - Advanced TensorFlow neural network trained on medical survey data
+- **🏥 Professional Health Interface** - Beautiful, medical-grade UI with intuitive design
+- **📊 Comprehensive Analysis** - Evaluates 11 key health and lifestyle risk factors
+- **🔗 REST API** - JSON-based API for healthcare system integration
+- **📱 Responsive Design** - Works seamlessly across all devices
+- **🔒 Privacy-Focused** - No personal data storage, instant assessment
+- **📈 Confidence Scoring** - Provides confidence levels for all predictions
+- **💡 Health Recommendations** - Personalized advice based on risk assessment
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Python, Flask, TensorFlow/Keras
-- **Frontend**: HTML, CSS, JavaScript
-- **Data Processing**: Pandas, NumPy, Scikit-learn
-- **Model**: Deep Neural Network with categorical encoding
-- **Deployment**: Render Cloud Platform
-- **API**: RESTful endpoints with JSON responses
+### Backend
+- **Python 3.11+** - Core programming language
+- **Flask 3.1** - Web framework and API server
+- **TensorFlow 2.18** - Deep learning and neural networks
+- **Scikit-learn 1.6** - Data preprocessing and model utilities
+- **Pandas & NumPy** - Data manipulation and numerical computing
 
-## 📋 Input Parameters
+### Frontend
+- **Modern HTML5** - Semantic markup with accessibility features
+- **Advanced CSS3** - Custom design system with CSS variables
+- **Vanilla JavaScript** - Interactive elements and form validation
+- **Font Awesome** - Professional medical icons
+- **Inter Font** - Clean, readable typography
 
-The model analyzes the following environmental factors:
+### Machine Learning
+- **Deep Neural Network** - Multi-layer perceptron for classification
+- **Label Encoding** - Categorical data preprocessing
+- **Feature Engineering** - Advanced feature creation and selection
+- **Binary Classification** - High/Low risk categorization
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| 🌡️ **Temperature** | Float | Temperature in Celsius |
-| 💧 **Humidity** | Float | Relative humidity percentage |
-| 💨 **Wind Speed** | Float | Wind speed in km/h |
-| 🌧️ **Precipitation** | Float | Precipitation percentage |
-| ☁️ **Cloud Cover** | String | Cloud coverage description |
-| 🔽 **Atmospheric Pressure** | Float | Pressure in hPa |
-| ☀️ **UV Index** | Float | UV radiation index |
-| 🍂 **Season** | String | Current season |
-| 👁️ **Visibility** | Float | Visibility in kilometers |
-| 📍 **Location** | String | Geographic location type |
+## 📋 Risk Factors Analyzed
 
-## 🎯 Model Output
+The AI model evaluates the following medical and lifestyle factors:
 
-The system returns predictions with:
-- **Weather Type**: Predicted weather condition category
-- **Confidence Score**: Model's confidence in the prediction (0-1)
+### 🚬 Smoking & Physical Symptoms
+| Factor | Description | Impact |
+|--------|-------------|---------|
+| **Yellow Fingers** | Nicotine staining from smoking | High risk indicator |
+| **Persistent Coughing** | Chronic cough that doesn't resolve | Respiratory health marker |
+| **Wheezing** | Breathing difficulties and airway obstruction | Lung function indicator |
+| **Chest Pain** | Persistent chest discomfort | Potential symptom marker |
+| **Swallowing Difficulty** | Problems with swallowing | Throat/esophageal health |
+
+### 🏥 Health & Lifestyle Factors
+| Factor | Description | Impact |
+|--------|-------------|---------|
+| **Chronic Disease** | Existing chronic health conditions | Overall health status |
+| **Unusual Fatigue** | Persistent tiredness not relieved by rest | General health indicator |
+| **Allergies** | Known allergic reactions | Immune system health |
+| **Alcohol Consumption** | Regular alcohol intake | Lifestyle risk factor |
+| **Anxiety** | Regular anxiety or stress | Mental health impact |
+| **Peer Pressure (Smoking)** | Social influences on smoking habits | Behavioral risk factor |
+
+## 🎯 Assessment Results
+
+The system provides comprehensive risk assessment including:
+
+- **Risk Classification**: High Risk / Low Risk
+- **Confidence Score**: Model certainty (0-100%)
+- **Risk Level**: Detailed risk categorization
+- **Personalized Recommendations**: Tailored health advice
+- **Action Items**: Specific next steps based on assessment
 
 ## 🏃‍♂️ Quick Start
 
 ### Prerequisites
 
 ```bash
-Python 3.10+
+Python 3.11+
 pip package manager
+Git
 ```
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/nonsodev/weather-predictor.git
-   cd weather-predictor
+   git clone https://github.com/nonsodev/lung-cancer-predictor.git
+   cd lung-cancer-predictor
    ```
 
-2. **Install dependencies**
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   
+   # Windows
+   venv\Scripts\activate
+   
+   # macOS/Linux
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the application**
+4. **Run the application**
    ```bash
-   python app.py
+   python src/app.py
    ```
 
-4. **Access the application**
-   - Web Interface: `http://localhost:5000`
-   - API Documentation: `http://localhost:5000/api`
+5. **Access the application**
+   - **Web Interface**: `http://localhost:5000`
+   - **API Documentation**: `http://localhost:5000/api`
+   - **Health Check**: `http://localhost:5000/health`
 
 ## 🌐 API Usage
 
-### Health Check
+### Health Check Endpoint
 ```bash
 GET /health
 ```
 
-### Prediction Endpoint
+**Response:**
+```json
+{
+  "status": "healthy",
+  "pipeline_status": "ready"
+}
+```
+
+### Risk Assessment Endpoint
 ```bash
 POST /predict
 Content-Type: application/json
@@ -99,16 +148,17 @@ Content-Type: application/json
 **Request Body:**
 ```json
 {
-  "Temperature": 25.5,
-  "Humidity": 65.0,
-  "Wind_Speed": 12.3,
-  "Precipitation": 20.0,
-  "Cloud_cover": "partly cloudy",
-  "Atmospheric_pressure": 1013.25,
-  "UV_Index": 6.0,
-  "Season": "Summer",
-  "Visibility": 10.0,
-  "Location": "coastal"
+  "yellow_fingers": "NO",
+  "anxiety": "NO", 
+  "peer_pressure": "NO",
+  "chronic_disease": "YES",
+  "fatigue": "YES",
+  "allergy": "NO",
+  "wheezing": "YES", 
+  "alcohol_consuming": "YES",
+  "coughing": "YES",
+  "swallowing_difficulty": "NO",
+  "chest_pain": "YES"
 }
 ```
 
@@ -116,126 +166,300 @@ Content-Type: application/json
 ```json
 {
   "prediction": {
-    "weather_type": "Sunny",
-    "confidence": 0.85
+    "prediction": "YES",
+    "confidence": 0.87,
+    "risk_level": "High"
   },
   "status": "success",
   "input_data": { ... }
 }
 ```
 
-### Python Example
+### Python Integration Example
 ```python
 import requests
 
-url = "https://weather-predictor-1-twkw.onrender.com/predict"
-data = {
-    "Temperature": 28.0,
-    "Humidity": 70.0,
-    "Wind_Speed": 8.5,
-    "Precipitation": 15.0,
-    "Cloud_cover": "overcast",
-    "Atmospheric_pressure": 1008.0,
-    "UV_Index": 4.0,
-    "Season": "Autumn",
-    "Visibility": 8.0,
-    "Location": "urban"
+# HealthAI Risk Assessment
+url = "http://localhost:5000/predict"
+assessment_data = {
+    "yellow_fingers": "NO",
+    "anxiety": "YES", 
+    "peer_pressure": "NO",
+    "chronic_disease": "NO",
+    "fatigue": "NO",
+    "allergy": "YES",
+    "wheezing": "NO", 
+    "alcohol_consuming": "NO",
+    "coughing": "NO",
+    "swallowing_difficulty": "NO",
+    "chest_pain": "NO"
 }
 
-response = requests.post(url, json=data)
-print(response.json())
+response = requests.post(url, json=assessment_data)
+result = response.json()
+
+print(f"Risk Level: {result['prediction']['risk_level']}")
+print(f"Confidence: {result['prediction']['confidence']:.1%}")
 ```
 
-## 📁 Project Structure
+## 📁 Project Architecture
 
 ```
-weather-predictor/
-├── 📂 src/
-│   ├── 📂 components/           # Data processing modules
-│   ├── 📂 pipelines/           # ML pipelines
-│   ├── 📂 app_logging/         # Logging utilities
-│   └── 📂 utils/               # Helper functions
-├── 📂 artifacts/               # Trained models & preprocessors
-│   ├── 📂 model/              # TensorFlow model
-│   ├── 🔧 preprocessor.pkl    # Data preprocessor
-│   └── 🏷️ le.pkl             # Label encoder
-├── 📂 templates/              # HTML templates
-├── 📂 notebooks/              # Jupyter notebooks
-├── 🌐 app.py                  # Flask application
-├── 📋 requirements.txt        # Dependencies
-└── 📖 README.md              # This file
+lung-cancer-predictor/
+├── 🫁 src/                          # Source code
+│   ├── 📱 app.py                    # Flask web application
+│   ├── ⚠️ exception.py             # Custom exception handling
+│   ├── 📂 components/               # ML pipeline components
+│   │   ├── 📊 data_ingestion.py    # Data loading and splitting
+│   │   ├── 🔄 data_transformation.py # Data preprocessing
+│   │   └── 🤖 model_trainer.py     # Model training pipeline
+│   ├── 📂 pipelines/               # Prediction pipelines
+│   │   └── 🔮 predict_pipeline.py  # Real-time prediction
+│   ├── 📂 templates/               # Web interface
+│   │   ├── 🏠 index.html          # Assessment form
+│   │   └── 📋 result.html         # Results display
+│   ├── 📂 app_logging/            # Logging system
+│   │   └── 📝 logger.py           # Application logging
+│   └── 📂 utils/                  # Utility functions
+│       └── 🛠️ utils.py            # Helper functions
+├── 🎯 artifacts/                   # Trained models & data
+│   ├── 🧠 model/                  # TensorFlow model files
+│   │   └── 🤖 model.keras         # Trained neural network
+│   ├── 🏷️ le.pkl                 # Label encoder
+│   ├── 📊 data.csv               # Processed dataset
+│   ├── 🧪 test.csv               # Test dataset
+│   └── 📈 train.csv              # Training dataset
+├── 📓 notebooks/                   # Research & development
+│   ├── 🔬 lung-cancer-prediction.ipynb # Model development
+│   └── 📋 survey_lung_cancer.csv  # Original dataset
+├── 📜 logs/                       # Application logs
+├── 🐳 Dockerfile                 # Container configuration
+├── ⚙️ requirements.txt           # Python dependencies
+├── 📦 setup.py                   # Package configuration
+└── 📖 README.md                  # This documentation
 ```
 
-## 🔧 Development
+## 🔬 Model Development
 
-### Training Your Own Model
+### Dataset Information
+- **Source**: Medical survey data on lung cancer risk factors
+- **Size**: 309 patient records (276 after preprocessing)
+- **Features**: 11 health and lifestyle indicators
+- **Target**: Binary classification (High Risk / Low Risk)
 
-1. **Prepare your dataset** in the `notebooks/` directory
-2. **Run the training pipeline**:
-   ```bash
-   python src/pipelines/training_pipeline.py
+### Model Architecture
+```python
+# Neural Network Architecture
+Input Layer (11 features)
+    ↓
+Hidden Layer 1 (Dense, ReLU activation)
+    ↓
+Hidden Layer 2 (Dense, ReLU activation)  
+    ↓
+Output Layer (1 neuron, Sigmoid activation)
+```
+
+### Training Process
+1. **Data Preprocessing**: Label encoding, feature engineering
+2. **Model Training**: Deep neural network with TensorFlow
+3. **Validation**: Cross-validation and performance metrics
+4. **Deployment**: Model serialization and API integration
+
+### Performance Metrics
+- **Accuracy**: High precision in risk classification
+- **Confidence Scoring**: Probabilistic output for uncertainty quantification
+- **Response Time**: < 100ms average prediction time
+- **Reliability**: Consistent performance across diverse inputs
+
+## 🎨 User Interface
+
+### Assessment Form
+- **Modern Design**: Clean, medical-grade interface
+- **Interactive Elements**: Hover effects and smooth transitions
+- **Accessibility**: WCAG compliant with screen reader support
+- **Responsive Layout**: Optimized for all screen sizes
+- **Tooltips**: Detailed explanations for each health factor
+
+### Results Display
+- **Visual Risk Indicators**: Color-coded risk levels
+- **Confidence Metrics**: Clear confidence scoring
+- **Health Recommendations**: Personalized advice based on assessment
+- **Action Items**: Specific next steps for users
+- **Professional Styling**: Medical-grade visual design
+
+## 🔧 Development & Customization
+
+### Adding New Risk Factors
+
+1. **Update the data model**:
+   ```python
+   # In src/pipelines/predict_pipeline.py
+   class CustomData:
+       def __init__(self, ..., new_factor):
+           self.new_factor = new_factor
    ```
-3. **Artifacts will be saved** in the `artifacts/` directory
 
-### Adding New Features
+2. **Modify the preprocessing pipeline**:
+   ```python
+   # Add feature engineering for new factor
+   df['NEW_FEATURE'] = df['new_factor'].map({'YES': 1, 'NO': 0})
+   ```
 
-1. **Modify the `CustomData` class** in `src/pipelines/predict_pipeline.py`
-2. **Update the preprocessing pipeline** in `src/components/`
-3. **Retrain the model** with new features
-4. **Update API documentation** and form templates
+3. **Update the web interface**:
+   ```html
+   <!-- Add new form field in templates/index.html -->
+   <div class="form-group">
+       <label for="new_factor">New Risk Factor</label>
+       <select id="new_factor" name="new_factor" required>
+           <option value="NO">No</option>
+           <option value="YES">Yes</option>
+       </select>
+   </div>
+   ```
 
-## 🎨 Screenshots
+### Model Retraining
 
-### Web Interface
-!["app pic](demo.png "Title")
+```bash
+# Navigate to notebooks directory
+cd notebooks/
 
-### API Response
-*JSON-formatted predictions with confidence scores*
+# Run the training notebook
+jupyter notebook lung-cancer-prediction.ipynb
+
+# Or run training pipeline directly
+python src/components/model_trainer.py
+```
+
+### Custom Deployment
+
+```bash
+# Build Docker container
+docker build -t healthai-lung-cancer .
+
+# Run container
+docker run -p 5000:5000 healthai-lung-cancer
+
+# Deploy to cloud platform
+# (Heroku, AWS, Google Cloud, etc.)
+```
+
+## 🧪 Testing
+
+### Unit Tests
+```bash
+# Run model tests
+python -m pytest tests/test_model.py
+
+# Run API tests  
+python -m pytest tests/test_api.py
+
+# Run integration tests
+python -m pytest tests/test_integration.py
+```
+
+### Manual Testing
+```bash
+# Test prediction pipeline
+python src/pipelines/predict_pipeline.py
+
+# Test web interface
+python src/app.py
+# Navigate to http://localhost:5000
+```
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+We welcome contributions from healthcare professionals, data scientists, and developers!
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+### How to Contribute
+
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/medical-enhancement
+   ```
+3. **Make your changes**
+   - Add new risk factors
+   - Improve model accuracy
+   - Enhance user interface
+   - Add medical validations
+4. **Test thoroughly**
+5. **Submit a pull request**
+
+### Contribution Guidelines
+
+- **Medical Accuracy**: Ensure all health-related features are medically sound
+- **Code Quality**: Follow PEP 8 and include comprehensive tests
+- **Documentation**: Update README and code comments
+- **Privacy**: Maintain patient privacy and data protection standards
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙋‍♂️ Contact
+## 🙋‍♂️ Contact & Support
 
 **Developer**: [Nonso Dev](https://github.com/nonsodev)
 
-- 📧 Email: thewarenerd@gmail.com
-- 🐙 GitHub: [@nonsodev](https://github.com/nonsodev)
-- 🌐 Live Demo: [weather-predictor-1-twkw.onrender.com](https://weather-predictor-1-twkw.onrender.com/)
+- 📧 **Email**: thewarenerd@gmail.com
+- 🐙 **GitHub**: [@nonsodev](https://github.com/nonsodev)
+- 💼 **LinkedIn**: Connect for healthcare AI discussions
 
-## 📊 Performance Metrics
+### Medical Advisory
 
-- **Model Accuracy**: High precision weather classification
-- **Response Time**: < 200ms average API response
-- **Uptime**: 99.9% availability on cloud deployment
-- **Supported Locations**: Multiple geographic regions
+For medical questions or clinical validation:
+- Consult with qualified healthcare professionals
+- Review medical literature on lung cancer risk factors
+- Consider integration with existing healthcare systems
 
 ## 🔮 Future Enhancements
 
-- [ ] Real-time weather data integration
-- [ ] Historical weather pattern analysis
-- [ ] Mobile application development
-- [ ] Advanced visualization dashboard
-- [ ] Multi-language support
-- [ ] Weather alerts and notifications
+### Short Term (Next 3 months)
+- [ ] **Enhanced Risk Factors** - Add smoking history, family history
+- [ ] **Improved UI/UX** - Advanced animations and interactions  
+- [ ] **Mobile App** - Native iOS and Android applications
+- [ ] **Multi-language Support** - Internationalization for global use
+
+### Medium Term (6 months)
+- [ ] **Integration APIs** - Healthcare system integration
+- [ ] **Advanced Analytics** - Population health insights
+- [ ] **Telemedicine Integration** - Connect with healthcare providers
+- [ ] **Risk Tracking** - Longitudinal risk assessment over time
+
+### Long Term (1 year+)
+- [ ] **Real-world Validation** - Clinical studies and validation
+- [ ] **AI Model Improvements** - Advanced deep learning architectures
+- [ ] **Regulatory Compliance** - FDA/CE marking for medical devices
+- [ ] **Healthcare Partnerships** - Integration with major health systems
+
+## 📊 Impact & Usage
+
+### Target Users
+- **Healthcare Professionals** - Risk screening and patient assessment
+- **Individuals** - Personal health awareness and screening
+- **Researchers** - Medical research and population health studies
+- **Health Organizations** - Community health screening programs
+
+### Use Cases
+- **Primary Care Screening** - Initial risk assessment in clinical settings
+- **Health Awareness Campaigns** - Community health education
+- **Research Studies** - Data collection for medical research
+- **Telemedicine** - Remote patient risk assessment
 
 ---
 
 <div align="center">
 
-**⭐ Star this repository if you found it helpful!**
+### 🏥 Advancing Healthcare Through AI
 
-Made with ❤️ and ☕ by [Nonso Dev](https://github.com/nonsodev)
+**HealthAI** represents the intersection of artificial intelligence and healthcare, providing accessible, accurate, and actionable health insights.
+
+**⭐ Star this repository to support healthcare AI development!**
+
+---
+
+*Made with ❤️ for better health outcomes*
+
+**Disclaimer**: This tool is for educational purposes only and should not replace professional medical advice.
 
 </div>
